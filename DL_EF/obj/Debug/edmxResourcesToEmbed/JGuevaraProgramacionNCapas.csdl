@@ -1,0 +1,623 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProgramacionNCapasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Usuarios" Relationship="Self.FK__Usuario__id_Rol__286302EC" FromRole="Rol" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+    <Property Name="IdRol" Type="Int32" />
+    <Property Name="Email" Type="String" MaxLength="254" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Sexo" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Celular" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CURP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Rol" Relationship="Self.FK__Usuario__id_Rol__286302EC" FromRole="Usuario" ToRole="Rol" />
+    <NavigationProperty Name="Direccions" Relationship="ProgramacionNCapasModel.FK__Direccion__IdUsu__5DCAEF64" FromRole="Usuario" ToRole="Direccion" />
+    <Property Name="Imagen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Aseguradoras" Relationship="ProgramacionNCapasModel.FK__Asegurado__IdUsu__6FE99F9F" FromRole="Usuario" ToRole="Aseguradora" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Usuario__id_Rol__286302EC">
+    <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProgramacionNCapasEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Rols" EntityType="Self.Rol" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK__Usuario__id_Rol__286302EC" Association="Self.FK__Usuario__id_Rol__286302EC">
+      <End Role="Rol" EntitySet="Rols" />
+      <End Role="Usuario" EntitySet="Usuarios" />
+    </AssociationSet>
+    <EntitySet Name="Colonias" EntityType="ProgramacionNCapasModel.Colonia" />
+    <EntitySet Name="Direccions" EntityType="ProgramacionNCapasModel.Direccion" />
+    <EntitySet Name="Estadoes" EntityType="ProgramacionNCapasModel.Estado" />
+    <EntitySet Name="Municipios" EntityType="ProgramacionNCapasModel.Municipio" />
+    <EntitySet Name="Pais" EntityType="ProgramacionNCapasModel.Pai" />
+    <AssociationSet Name="FK__Colonia__IdMunic__52593CB8" Association="ProgramacionNCapasModel.FK__Colonia__IdMunic__52593CB8">
+      <End Role="Municipio" EntitySet="Municipios" />
+      <End Role="Colonia" EntitySet="Colonias" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Direccion__IdCol__5629CD9C" Association="ProgramacionNCapasModel.FK__Direccion__IdCol__5629CD9C">
+      <End Role="Colonia" EntitySet="Colonias" />
+      <End Role="Direccion" EntitySet="Direccions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Direccion__IdUsu__5DCAEF64" Association="ProgramacionNCapasModel.FK__Direccion__IdUsu__5DCAEF64">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Direccion" EntitySet="Direccions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Estado__IdPais__4CA06362" Association="ProgramacionNCapasModel.FK__Estado__IdPais__4CA06362">
+      <End Role="Pai" EntitySet="Pais" />
+      <End Role="Estado" EntitySet="Estadoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Municipio__IdEst__4F7CD00D" Association="ProgramacionNCapasModel.FK__Municipio__IdEst__4F7CD00D">
+      <End Role="Estado" EntitySet="Estadoes" />
+      <End Role="Municipio" EntitySet="Municipios" />
+    </AssociationSet>
+    <EntitySet Name="Aseguradoras" EntityType="ProgramacionNCapasModel.Aseguradora" />
+    <AssociationSet Name="FK__Asegurado__IdUsu__6FE99F9F" Association="ProgramacionNCapasModel.FK__Asegurado__IdUsu__6FE99F9F">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Aseguradora" EntitySet="Aseguradoras" />
+    </AssociationSet>
+    <EntitySet Name="Empleadoes" EntityType="ProgramacionNCapasModel.Empleado" />
+    <EntitySet Name="Empresas" EntityType="ProgramacionNCapasModel.Empresa" />
+    <AssociationSet Name="FK__Empleado__IdEmpr__19DFD96B" Association="ProgramacionNCapasModel.FK__Empleado__IdEmpr__19DFD96B">
+      <End Role="Empresa" EntitySet="Empresas" />
+      <End Role="Empleado" EntitySet="Empleadoes" />
+    </AssociationSet>
+    <FunctionImport Name="AseguradoraAdd">
+      <Parameter Name="NombreAseguradora" Mode="In" Type="String" />
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AseguradoraDelete">
+      <Parameter Name="IdAseguradora" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AseguradoraGetAll" ReturnType="Collection(ProgramacionNCapasModel.AseguradoraGetAll_Result)" />
+    <FunctionImport Name="AseguradoraGetById" ReturnType="Collection(ProgramacionNCapasModel.AseguradoraGetById_Result)">
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AseguradoraUpdate">
+      <Parameter Name="IdAseguradora" Mode="In" Type="Int32" />
+      <Parameter Name="NombreAseguradora" Mode="In" Type="String" />
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CambiarStatus">
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+      <Parameter Name="Status" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="ColoniaGetByIdMunicipio" ReturnType="Collection(ProgramacionNCapasModel.ColoniaGetByIdMunicipio_Result)">
+      <Parameter Name="IdMunicipio" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EmpleadoAdd">
+      <Parameter Name="NumeroEmpleado" Mode="In" Type="String" />
+      <Parameter Name="RFC" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="NSS" Mode="In" Type="String" />
+      <Parameter Name="Foto" Mode="In" Type="String" />
+      <Parameter Name="IdEmpresa" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EmpleadoDelete">
+      <Parameter Name="NumeroEmpleado" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EmpleadoGetAll" ReturnType="Collection(ProgramacionNCapasModel.EmpleadoGetAll_Result)">
+      <Parameter Name="IdEmpresa" Mode="In" Type="Int32" />
+      <Parameter Name="NombreEmpleado" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EmpleadoGetById" ReturnType="Collection(ProgramacionNCapasModel.EmpleadoGetById_Result)">
+      <Parameter Name="NumeroEmpleado" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EmpleadoUpdate">
+      <Parameter Name="NumeroEmpleado" Mode="In" Type="String" />
+      <Parameter Name="RFC" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="NSS" Mode="In" Type="String" />
+      <Parameter Name="Foto" Mode="In" Type="String" />
+      <Parameter Name="IdEmpresa" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EmpresaGetAll" ReturnType="Collection(ProgramacionNCapasModel.EmpresaGetAll_Result)" />
+    <FunctionImport Name="EstadoGetByIdPais" ReturnType="Collection(ProgramacionNCapasModel.EstadoGetByIdPais_Result)">
+      <Parameter Name="IdPais" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="MunicipioGetByIdEstado" ReturnType="Collection(ProgramacionNCapasModel.MunicipioGetByIdEstado_Result)">
+      <Parameter Name="IdEstado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="PaisGetAll" ReturnType="Collection(ProgramacionNCapasModel.PaisGetAll_Result)" />
+    <FunctionImport Name="RolGetAll" ReturnType="Collection(ProgramacionNCapasModel.RolGetAll_Result)" />
+    <FunctionImport Name="UsuarioADD">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="Sexo" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="Celular" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="CURP" Mode="In" Type="String" />
+      <Parameter Name="Imagen" Mode="In" Type="String" />
+      <Parameter Name="IdRol" Mode="In" Type="Int32" />
+      <Parameter Name="IdColonia" Mode="In" Type="Int32" />
+      <Parameter Name="Calle" Mode="In" Type="String" />
+      <Parameter Name="NumeroInterior" Mode="In" Type="String" />
+      <Parameter Name="NumeroExterior" Mode="In" Type="String" />
+      <Parameter Name="FilasAfectadas" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UsuarioDelete">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+      <Parameter Name="FilasAfectas" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(ProgramacionNCapasModel.UsuarioGetAll_Result)">
+      <Parameter Name="NombreUsuario" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UsuarioGetById" ReturnType="Collection(ProgramacionNCapasModel.UsuarioGetById_Result)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UsuarioLogin" ReturnType="Collection(ProgramacionNCapasModel.UsuarioLogin_Result)">
+      <Parameter Name="Email" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="UsuarioUpdate">
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="Sexo" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="Celular" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="CURP" Mode="In" Type="String" />
+      <Parameter Name="Imagen" Mode="In" Type="String" />
+      <Parameter Name="IdRol" Mode="In" Type="Int32" />
+      <Parameter Name="Calle" Mode="In" Type="String" />
+      <Parameter Name="NumeroInterior" Mode="In" Type="String" />
+      <Parameter Name="NumeroExterior" Mode="In" Type="String" />
+      <Parameter Name="IdColonia" Mode="In" Type="Int32" />
+      <Parameter Name="FilasAfectadas" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Dependientes" EntityType="ProgramacionNCapasModel.Dependiente" />
+    <AssociationSet Name="FK__Dependien__Numer__3F115E1A" Association="ProgramacionNCapasModel.FK__Dependien__Numer__3F115E1A">
+      <End Role="Empleado" EntitySet="Empleadoes" />
+      <End Role="Dependiente" EntitySet="Dependientes" />
+    </AssociationSet>
+    <FunctionImport Name="DependienteAdd">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="EstadoCivil" Mode="In" Type="String" />
+      <Parameter Name="Genero" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="RFC" Mode="In" Type="String" />
+      <Parameter Name="NumeroEmpleado" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DependienteDelete">
+      <Parameter Name="IdDependiente" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DependienteGetById" ReturnType="Collection(ProgramacionNCapasModel.DependienteGetById_Result)">
+      <Parameter Name="IdDependiente" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DependienteUpdate">
+      <Parameter Name="IdDependiente" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="EstadoCivil" Mode="In" Type="String" />
+      <Parameter Name="Genero" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="RFC" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="DependienteGetByNumeroEmpleado" ReturnType="Collection(ProgramacionNCapasModel.DependienteGetByNumeroEmpleado_Result)">
+      <Parameter Name="NumeroEmpleado" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="Colonia">
+    <Key>
+      <PropertyRef Name="IdColonia" />
+    </Key>
+    <Property Name="IdColonia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CodigoPostal" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdMunicipio" Type="Int32" />
+    <NavigationProperty Name="Municipio" Relationship="ProgramacionNCapasModel.FK__Colonia__IdMunic__52593CB8" FromRole="Colonia" ToRole="Municipio" />
+    <NavigationProperty Name="Direccions" Relationship="ProgramacionNCapasModel.FK__Direccion__IdCol__5629CD9C" FromRole="Colonia" ToRole="Direccion" />
+  </EntityType>
+  <EntityType Name="Direccion">
+    <Key>
+      <PropertyRef Name="IdDireccion" />
+    </Key>
+    <Property Name="IdDireccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Calle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NumeroInterior" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="NumeroExterior" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="IdColonia" Type="Int32" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <NavigationProperty Name="Colonia" Relationship="ProgramacionNCapasModel.FK__Direccion__IdCol__5629CD9C" FromRole="Direccion" ToRole="Colonia" />
+    <NavigationProperty Name="Usuario" Relationship="ProgramacionNCapasModel.FK__Direccion__IdUsu__5DCAEF64" FromRole="Direccion" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Estado">
+    <Key>
+      <PropertyRef Name="IdEstado" />
+    </Key>
+    <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdPais" Type="Int32" />
+    <NavigationProperty Name="Pai" Relationship="ProgramacionNCapasModel.FK__Estado__IdPais__4CA06362" FromRole="Estado" ToRole="Pai" />
+    <NavigationProperty Name="Municipios" Relationship="ProgramacionNCapasModel.FK__Municipio__IdEst__4F7CD00D" FromRole="Estado" ToRole="Municipio" />
+  </EntityType>
+  <EntityType Name="Municipio">
+    <Key>
+      <PropertyRef Name="IdMunicipio" />
+    </Key>
+    <Property Name="IdMunicipio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdEstado" Type="Int32" />
+    <NavigationProperty Name="Colonias" Relationship="ProgramacionNCapasModel.FK__Colonia__IdMunic__52593CB8" FromRole="Municipio" ToRole="Colonia" />
+    <NavigationProperty Name="Estado" Relationship="ProgramacionNCapasModel.FK__Municipio__IdEst__4F7CD00D" FromRole="Municipio" ToRole="Estado" />
+  </EntityType>
+  <EntityType Name="Pai">
+    <Key>
+      <PropertyRef Name="IdPais" />
+    </Key>
+    <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Estadoes" Relationship="ProgramacionNCapasModel.FK__Estado__IdPais__4CA06362" FromRole="Pai" ToRole="Estado" />
+  </EntityType>
+  <Association Name="FK__Colonia__IdMunic__52593CB8">
+    <End Type="ProgramacionNCapasModel.Municipio" Role="Municipio" Multiplicity="0..1" />
+    <End Type="ProgramacionNCapasModel.Colonia" Role="Colonia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Municipio">
+        <PropertyRef Name="IdMunicipio" />
+      </Principal>
+      <Dependent Role="Colonia">
+        <PropertyRef Name="IdMunicipio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Direccion__IdCol__5629CD9C">
+    <End Type="ProgramacionNCapasModel.Colonia" Role="Colonia" Multiplicity="0..1" />
+    <End Type="ProgramacionNCapasModel.Direccion" Role="Direccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colonia">
+        <PropertyRef Name="IdColonia" />
+      </Principal>
+      <Dependent Role="Direccion">
+        <PropertyRef Name="IdColonia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Direccion__IdUsu__5DCAEF64">
+    <End Type="ProgramacionNCapasModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+    <End Type="ProgramacionNCapasModel.Direccion" Role="Direccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Direccion">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Estado__IdPais__4CA06362">
+    <End Type="ProgramacionNCapasModel.Pai" Role="Pai" Multiplicity="0..1" />
+    <End Type="ProgramacionNCapasModel.Estado" Role="Estado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pai">
+        <PropertyRef Name="IdPais" />
+      </Principal>
+      <Dependent Role="Estado">
+        <PropertyRef Name="IdPais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Municipio__IdEst__4F7CD00D">
+    <End Type="ProgramacionNCapasModel.Estado" Role="Estado" Multiplicity="0..1" />
+    <End Type="ProgramacionNCapasModel.Municipio" Role="Municipio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Municipio">
+        <PropertyRef Name="IdEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Aseguradora">
+    <Key>
+      <PropertyRef Name="IdAseguradora" />
+    </Key>
+    <Property Name="IdAseguradora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+    <Property Name="FechaModificacion" Type="DateTime" Precision="0" />
+    <Property Name="IdUsuario" Type="Int32" />
+    <NavigationProperty Name="Usuario" Relationship="ProgramacionNCapasModel.FK__Asegurado__IdUsu__6FE99F9F" FromRole="Aseguradora" ToRole="Usuario" />
+  </EntityType>
+  <Association Name="FK__Asegurado__IdUsu__6FE99F9F">
+    <End Type="ProgramacionNCapasModel.Usuario" Role="Usuario" Multiplicity="0..1" />
+    <End Type="ProgramacionNCapasModel.Aseguradora" Role="Aseguradora" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Aseguradora">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="NumeroEmpleado" />
+    </Key>
+    <Property Name="NumeroEmpleado" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RFC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Precision="0" />
+    <Property Name="NSS" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FechaIngreso" Type="DateTime" Precision="0" />
+    <Property Name="Foto" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IdEmpresa" Type="Int32" />
+    <NavigationProperty Name="Empresa" Relationship="ProgramacionNCapasModel.FK__Empleado__IdEmpr__19DFD96B" FromRole="Empleado" ToRole="Empresa" />
+    <NavigationProperty Name="Dependientes" Relationship="ProgramacionNCapasModel.FK__Dependien__Numer__3F115E1A" FromRole="Empleado" ToRole="Dependiente" />
+  </EntityType>
+  <EntityType Name="Empresa">
+    <Key>
+      <PropertyRef Name="IdEmpresa" />
+    </Key>
+    <Property Name="IdEmpresa" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Empleadoes" Relationship="ProgramacionNCapasModel.FK__Empleado__IdEmpr__19DFD96B" FromRole="Empresa" ToRole="Empleado" />
+  </EntityType>
+  <Association Name="FK__Empleado__IdEmpr__19DFD96B">
+    <End Type="ProgramacionNCapasModel.Empresa" Role="Empresa" Multiplicity="0..1" />
+    <End Type="ProgramacionNCapasModel.Empleado" Role="Empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empresa">
+        <PropertyRef Name="IdEmpresa" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="IdEmpresa" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="AseguradoraGetAll_Result">
+    <Property Type="Int32" Name="IdAseguradora" Nullable="false" />
+    <Property Type="String" Name="NombreAseguradora" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="FechaCreacion" Nullable="true" />
+    <Property Type="DateTime" Name="FechaModificacion" Nullable="true" />
+    <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+    <Property Type="String" Name="NombreUsuario" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Imagen" Nullable="true" />
+    <Property Type="String" Name="Calle" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NombreColonia" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="AseguradoraGetById_Result">
+    <Property Type="Int32" Name="IdAseguradora" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="FechaCreacion" Nullable="true" />
+    <Property Type="DateTime" Name="FechaModificacion" Nullable="true" />
+    <Property Type="Int32" Name="IdUsuario" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="ColoniaGetByIdMunicipio_Result">
+    <Property Type="Int32" Name="IdColonia" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CodigoPostal" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="EmpleadoGetAll_Result">
+    <Property Type="String" Name="NumeroEmpleado" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="RFC" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="NombreEmpleado" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="254" />
+    <Property Type="String" Name="TelefonoEmpleado" Nullable="false" MaxLength="20" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+    <Property Type="String" Name="NSS" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="FechaIngreso" Nullable="true" />
+    <Property Type="String" Name="Foto" Nullable="true" />
+    <Property Type="Int32" Name="IdEmpresa" Nullable="false" />
+    <Property Type="String" Name="NombreEmpresa" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EmpresaTelefono" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="EmpleadoGetById_Result">
+    <Property Type="String" Name="NumeroEmpleado" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="RFC" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="NombreEmpleado" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="254" />
+    <Property Type="String" Name="TelefonoEmpleado" Nullable="false" MaxLength="20" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+    <Property Type="String" Name="NSS" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="FechaIngreso" Nullable="true" />
+    <Property Type="String" Name="Foto" Nullable="true" />
+    <Property Type="Int32" Name="IdEmpresa" Nullable="false" />
+    <Property Type="String" Name="NombreEmpresa" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="EmpresaTelefono" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="EmpresaGetAll_Result">
+    <Property Type="Int32" Name="IdEmpresa" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Telefono" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="EstadoGetByIdPais_Result">
+    <Property Type="Int32" Name="IdEstado" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="MunicipioGetByIdEstado_Result">
+    <Property Type="Int32" Name="IdMunicipio" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="PaisGetAll_Result">
+    <Property Type="Int32" Name="IdPais" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="RolGetAll_Result">
+    <Property Type="Int32" Name="IdRol" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="30" />
+  </ComplexType>
+  <ComplexType Name="UsuarioGetAll_Result">
+    <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="254" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Sexo" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Telefono" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Celular" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+    <Property Type="String" Name="CURP" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Imagen" Nullable="true" />
+    <Property Type="Boolean" Name="Status" Nullable="false" />
+    <Property Type="Int32" Name="idRol" Nullable="false" />
+    <Property Type="String" Name="NombreRol" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="IdDireccion" Nullable="false" />
+    <Property Type="String" Name="Calle" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NumeroInterior" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="NumeroExterior" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="IdColonia" Nullable="false" />
+    <Property Type="String" Name="NombreColonia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CodigoPostal" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="IdMunicipio" Nullable="false" />
+    <Property Type="String" Name="NombreMunicipio" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="IdEstado" Nullable="false" />
+    <Property Type="String" Name="NombreEstado" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="IdPais" Nullable="false" />
+    <Property Type="String" Name="NombrePais" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="UsuarioGetById_Result">
+    <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="254" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Sexo" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Telefono" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Celular" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="true" />
+    <Property Type="String" Name="CURP" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Imagen" Nullable="true" />
+    <Property Type="Boolean" Name="Status" Nullable="false" />
+    <Property Type="Int32" Name="idRol" Nullable="false" />
+    <Property Type="String" Name="NombreRol" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="IdDireccion" Nullable="false" />
+    <Property Type="String" Name="Calle" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NumeroInterior" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="NumeroExterior" Nullable="false" MaxLength="20" />
+    <Property Type="Int32" Name="IdColonia" Nullable="false" />
+    <Property Type="String" Name="NombreColonia" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CodigoPostal" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="IdMunicipio" Nullable="false" />
+    <Property Type="String" Name="NombreMunicipio" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="IdEstado" Nullable="false" />
+    <Property Type="String" Name="NombreEstado" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="IdPais" Nullable="false" />
+    <Property Type="String" Name="NombrePais" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="UsuarioLogin_Result">
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="254" />
+    <Property Type="String" Name="Password" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <EntityType Name="Dependiente">
+    <Key>
+      <PropertyRef Name="IdDependiente" />
+    </Key>
+    <Property Name="IdDependiente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EstadoCivil" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="GENERO" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Telefono" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="RFC" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="NumeroEmpleado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Empleado" Relationship="ProgramacionNCapasModel.FK__Dependien__Numer__3F115E1A" FromRole="Dependiente" ToRole="Empleado" />
+  </EntityType>
+  <Association Name="FK__Dependien__Numer__3F115E1A">
+    <End Type="ProgramacionNCapasModel.Empleado" Role="Empleado" Multiplicity="0..1" />
+    <End Type="ProgramacionNCapasModel.Dependiente" Role="Dependiente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="NumeroEmpleado" />
+      </Principal>
+      <Dependent Role="Dependiente">
+        <PropertyRef Name="NumeroEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="DependienteGetById_Result">
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" />
+    <Property Type="String" Name="EstadoCivil" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="GENERO" Nullable="true" MaxLength="2" />
+    <Property Type="String" Name="Telefono" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="RFC" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="DependienteGetByNumeroEmpleado_Result">
+    <Property Type="Int32" Name="IdDependiente" Nullable="false" />
+    <Property Type="String" Name="DependienteNombre" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DependienteApellidoPaterno" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DependienteApellidoMaterno" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="DependienteFechaNacimiento" Nullable="false" />
+    <Property Type="String" Name="EstadoCivil" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="GENERO" Nullable="true" MaxLength="2" />
+    <Property Type="String" Name="DependienteTelefono" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="DependienteRFC" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="NumeroEmpleado" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="NombreEmpleado" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="EmpleadoApellidoPaterno" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="EmpleadoApellidoMaterno" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TelefonoEmpleado" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Foto" Nullable="true" />
+  </ComplexType>
+</Schema>
