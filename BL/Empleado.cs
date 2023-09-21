@@ -189,7 +189,7 @@ namespace BL
             } catch(Exception ex)
             {
                 result.Correct = false;
-                result.ErrorMessage = ex.Message;
+                result.ErrorMessage = ex.InnerException.Message;
                 result.Ex = ex;
             }
 
