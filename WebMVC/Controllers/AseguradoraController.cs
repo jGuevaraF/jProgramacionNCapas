@@ -13,13 +13,16 @@ namespace WebMVC.Controllers
         [HttpGet]
         public ActionResult GetAll()
         {
-            ML.Result result = BL.Aseguradora.GetAll();
+            //ML.Result result = BL.Aseguradora.GetAll();
+            ServiceReferenceAseguradora.ServiceAseguradoraClient getAll = new ServiceReferenceAseguradora.ServiceAseguradoraClient();
+
+            var result = getAll.GetAll();
 
             ML.Aseguradora aseguradora = new ML.Aseguradora();
 
             if (result.Correct)
             {
-                aseguradora.Aseguradoras = result.Objects;
+                aseguradora.Aseguradoras = result.Objects.ToList();
                 return View(aseguradora);
             }
             return View();
@@ -33,18 +36,23 @@ namespace WebMVC.Controllers
 
             ML.Usuario usuario = new ML.Usuario();
 
-            ML.Result todosUsuarios = BL.Usuario.GetAllEF(usuario);
+            //ML.Result todosUsuarios = BL.Usuario.GetAllEF(usuario);
+            ServiceReferenceUsuario.ServiceUsuarioClient getAll = new ServiceReferenceUsuario.ServiceUsuarioClient();
+            var todosUsuarios = getAll.GetAll(usuario);
 
-            if(idUsuario == null)//agregar
+            if (idUsuario == null)//agregar
             {
-                aseguradora.Usuario.Usuarios = todosUsuarios.Objects;
+                aseguradora.Usuario.Usuarios = todosUsuarios.Objects.ToList();
                 
 
             } else //actualizar
             {
-                ML.Result resultUpdate = BL.Aseguradora.GetById(idUsuario.Value);
-                aseguradora = (ML.Aseguradora)resultUpdate.Object;
-                aseguradora.Usuario.Usuarios = todosUsuarios.Objects;
+                //ML.Result resultUpdate = BL.Aseguradora.GetById(idUsuario.Value);
+                ServiceReferenceAseguradora.ServiceAseguradoraClient getById = new ServiceReferenceAseguradora.ServiceAseguradoraClient();
+                var resultGetById = getById.GetById(idUsuario.Value);
+
+                aseguradora = (ML.Aseguradora)resultGetById.Object;
+                aseguradora.Usuario.Usuarios = todosUsuarios.Objects.ToList();
             }
             return View(aseguradora);
         }
@@ -52,9 +60,14 @@ namespace WebMVC.Controllers
         [HttpPost]
         public ActionResult Form(ML.Aseguradora aseguradora)
         {
-            if(aseguradora.IdAseguradora == 0)
+            ServiceReferenceAseguradora.ServiceAseguradoraClient aseguradoraWCF = new ServiceReferenceAseguradora.ServiceAseguradoraClient();
+
+            if (aseguradora.IdAseguradora == 0)
             {
-                ML.Result resultAdd = BL.Aseguradora.Add(aseguradora);
+                //ML.Result resultAdd = BL.Aseguradora.Add(aseguradora);
+                
+                var resultAdd = aseguradoraWCF.Add(aseguradora);
+
                 if (resultAdd.Correct)
                 {
                     ViewBag.Message = "EL usuario se dio de alta correctamente";
@@ -65,7 +78,8 @@ namespace WebMVC.Controllers
                 }
             } else
             {
-                ML.Result resultUpdate = BL.Aseguradora.Update(aseguradora);
+                //ML.Result resultUpdate = BL.Aseguradora.Update(aseguradora);
+                var resultUpdate = aseguradoraWCF.Update(aseguradora);
                 if (resultUpdate.Correct)
                 {
                     ViewBag.Message = "EL usuario se actualizó correctamente";
@@ -80,9 +94,14 @@ namespace WebMVC.Controllers
 
         [HttpGet]
         public ActionResult Delete(int idAseguradora) {
-            ML.Result resultDelete = BL.Aseguradora.Delete(idAseguradora);
+            ServiceReferenceAseguradora.ServiceAseguradoraClient delete = new ServiceReferenceAseguradora.ServiceAseguradoraClient();
+
+            //ML.Result resultDelete = BL.Aseguradora.Delete(idAseguradora);
+            var resultDelete = delete.Delete(idAseguradora);
+
             if (resultDelete.Correct)
             {
+
                 ViewBag.Message = "El usuario se eliminó correctamente";
             }
             else

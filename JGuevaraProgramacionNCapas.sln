@@ -14,8 +14,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DL_EF", "DL_EF\DL_EF.csproj", "{D02E3C05-5045-4D66-8588-0F218EFD486A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL_MVC", "WebMVC\PL_MVC.csproj", "{FC5FE507-4A11-4EBE-8D4F-C931AEC16205}"
+	ProjectSection(ProjectDependencies) = postProject
+		{59726919-361A-4C75-A3D1-3A2F833E19B2} = {59726919-361A-4C75-A3D1-3A2F833E19B2}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLWCF", "SLWCF\SLWCF.csproj", "{59726919-361A-4C75-A3D1-3A2F833E19B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SLWebAPI", "SLWebAPI\SLWebAPI.csproj", "{1996867C-D76A-4729-B600-7A9DC713C3F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +56,10 @@ Global
 		{59726919-361A-4C75-A3D1-3A2F833E19B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59726919-361A-4C75-A3D1-3A2F833E19B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59726919-361A-4C75-A3D1-3A2F833E19B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1996867C-D76A-4729-B600-7A9DC713C3F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1996867C-D76A-4729-B600-7A9DC713C3F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1996867C-D76A-4729-B600-7A9DC713C3F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1996867C-D76A-4729-B600-7A9DC713C3F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

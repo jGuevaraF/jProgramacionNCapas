@@ -23,7 +23,11 @@ namespace WebMVC.Controllers
 
                 if (usuario.IdUsuario == 0) //Agregar
                 {
-                    ML.Result result = BL.Usuario.AddEF(usuario);
+                    //ML.Result result = BL.Usuario.AddEF(usuario);
+                    ServiceReferenceUsuario.ServiceUsuarioClient usuarioAdd = new ServiceReferenceUsuario.ServiceUsuarioClient();
+
+                    var result = usuarioAdd.Add(usuario);
+
                     if (result.Correct)
                     {
                         ViewBag.Add = true;
@@ -39,7 +43,11 @@ namespace WebMVC.Controllers
                 {
                     //ML.Result result = BL.Usuario.GetByIdEF(usuario.IdUsuario);
                     //usuario = (ML.Usuario)result.Object;
-                    ML.Result result = BL.Usuario.UpdateEF(usuario);
+                    //ML.Result result = BL.Usuario.UpdateEF(usuario);
+                    ServiceReferenceUsuario.ServiceUsuarioClient updateUsuario = new ServiceReferenceUsuario.ServiceUsuarioClient();
+
+                    var result = updateUsuario.Update(usuario);
+
                     if (result.Correct)
                     {
                         ViewBag.Message = "Registro actualizado";
@@ -94,7 +102,10 @@ namespace WebMVC.Controllers
             }
             else //Update
             {
-                ML.Result result = BL.Usuario.GetByIdEF(id.Value);
+                //ML.Result result = BL.Usuario.GetByIdEF(id.Value);
+                ServiceReferenceUsuario.ServiceUsuarioClient getIdUsuario = new ServiceReferenceUsuario.ServiceUsuarioClient();
+                var result = getIdUsuario.GetById(id.Value);
+
                 usuario = (ML.Usuario)result.Object;
                 //Pasamos la lista de roles
                 usuario.Rol.Roles = resultRol.Objects;
@@ -116,7 +127,10 @@ namespace WebMVC.Controllers
 
         public ActionResult Delete(int id)
         {
-            ML.Result result = BL.Usuario.DeleteEF(id);
+            //ML.Result result = BL.Usuario.DeleteEF(id);
+            ServiceReferenceUsuario.ServiceUsuarioClient deleteUsuario = new ServiceReferenceUsuario.ServiceUsuarioClient();
+            var result = deleteUsuario.Delete(id);
+
             if (result.Correct)
             {
                 ViewBag.Message = "El usuario se eliminó correctamente";
@@ -134,12 +148,14 @@ namespace WebMVC.Controllers
         {
             ML.Usuario usuario = new ML.Usuario();
 
-            ML.Result result = BL.Usuario.GetAllEF(usuario);
+            //ML.Result result = BL.Usuario.GetAllEF(usuario);
+            ServiceReferenceUsuario.ServiceUsuarioClient getAll = new ServiceReferenceUsuario.ServiceUsuarioClient();
+            var result = getAll.GetAll(usuario);
 
 
             if (result.Correct)
             {
-                usuario.Usuarios = result.Objects;
+                usuario.Usuarios = result.Objects.ToList();
                 return View(usuario);
             }
             else
@@ -152,9 +168,12 @@ namespace WebMVC.Controllers
         [HttpPost]
         public ActionResult GetAll(ML.Usuario usuario)
         {
-            ML.Result result = BL.Usuario.GetAllEF(usuario);
+            //ML.Result result = BL.Usuario.GetAllEF(usuario);
+            ServiceReferenceUsuario.ServiceUsuarioClient getAll = new ServiceReferenceUsuario.ServiceUsuarioClient();
+            var result = getAll.GetAll(usuario);
+
             usuario = new ML.Usuario();
-            usuario.Usuarios = result.Objects;
+            usuario.Usuarios = result.Objects.ToList();
             return View(usuario);
         }
 
@@ -225,7 +244,9 @@ namespace WebMVC.Controllers
 
         public JsonResult ChangeStatus(int IdUsuario, bool Status)
         {
-            ML.Result result = BL.Usuario.CambiarStatus(IdUsuario, Status);
+            //ML.Result result = BL.Usuario.CambiarStatus(IdUsuario, Status);
+            ServiceReferenceUsuario.ServiceUsuarioClient status = new ServiceReferenceUsuario.ServiceUsuarioClient();
+            var result = status.CambiarStatus(IdUsuario, Status);
             return Json(null);
         }
 

@@ -1,10 +1,6 @@
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\bin\SLWCF.dll.config
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\bin\SLWCF.dll
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\bin\SLWCF.pdb
-C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\obj\Debug\SLWCF.csproj.AssemblyReference.cache
-C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\obj\Debug\SLWCF.csproj.CoreCompileInputs.cache
-C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\obj\Debug\SLWCF.dll
-C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\obj\Debug\SLWCF.pdb
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\bin\BL.dll
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\bin\EntityFramework.dll
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\bin\EntityFramework.SqlServer.dll
@@ -17,4 +13,8 @@ C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCap
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\bin\EntityFramework.SqlServer.xml
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\bin\DL_EF.pdb
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\bin\DL_EF.dll.config
+C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\obj\Debug\SLWCF.csproj.AssemblyReference.cache
+C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\obj\Debug\SLWCF.csproj.CoreCompileInputs.cache
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\obj\Debug\SLWCF.csproj.CopyComplete
+C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\obj\Debug\SLWCF.dll
+C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\SLWCF\obj\Debug\SLWCF.pdb

@@ -4,43 +4,75 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace WebMVC.Controllers
 {
     public class EmpleadoController : Controller
     {
         // GET: Empleado
+        //sin WCF
+        //public ActionResult GetAll()
+        //{
+        //    ML.Empleado empleado = new ML.Empleado();
+        //    empleado.Empresa = new ML.Empresa();
+        //    ML.Result resultGetAll = BL.Empleado.GetAll(empleado);
+        //    ML.Result resultGetAllEmpresas = BL.Empresa.GetAll();
+
+        //    if (resultGetAll.Correct)
+        //    {
+        //        empleado.Empleados = resultGetAll.Objects;
+        //        //empleado.Empresa = new ML.Empresa();
+        //        empleado.Empresa.Empresas = resultGetAllEmpresas.Objects;
+        //        return View(empleado);
+        //    } else
+        //    {
+        //        return View();
+        //    }
+
+        //}
+
         [HttpGet]
-        public ActionResult GetAll()
+        public ActionResult GetAll()//WCF
         {
             ML.Empleado empleado = new ML.Empleado();
             empleado.Empresa = new ML.Empresa();
-            ML.Result resultGetAll = BL.Empleado.GetAll(empleado);
-            ML.Result resultGetAllEmpresas = BL.Empresa.GetAll();
+            //ML.Result resultGetAll = BL.Empleado.GetAll(empleado);
+            ServiceReferenceEmpleado.ServiceEmpleadoClient resultGetAll = new ServiceReferenceEmpleado.ServiceEmpleadoClient(); //creamos un objeto hacia nuestro servicio web, ahora en vez de tener un BL tenemos un servicio web
 
-            if (resultGetAll.Correct)
+            var resultadoGetAll = resultGetAll.GetAll(empleado);//guardamos el resultado del return que tiene el servicio
+
+            ML.Result resultGetAllEmpresas = BL.Empresa.GetAll(); //pasamos la lista de las empresas
+
+            if (resultadoGetAll.Correct)
             {
-                empleado.Empleados = resultGetAll.Objects;
+                empleado.Empleados = resultadoGetAll.Objects.ToList(); //le pasamos los resultados obtenidos en el servicio, hacia la lista de Empleados
                 //empleado.Empresa = new ML.Empresa();
                 empleado.Empresa.Empresas = resultGetAllEmpresas.Objects;
                 return View(empleado);
-            } else
+            }
+            else
             {
                 return View();
             }
-            
-        }
+
+}
 
         [HttpPost]
         public ActionResult GetAll(ML.Empleado buscarEmp)
         {
-            ML.Result resultGetAll = BL.Empleado.GetAll(buscarEmp);
-            ML.Result resultGetAllEmpresas = BL.Empresa.GetAll();
+            //ML.Result resultGetAll = BL.Empleado.GetAll(buscarEmp);
 
+            //WCF
+            ServiceReferenceEmpleado.ServiceEmpleadoClient resultBusqueda = new ServiceReferenceEmpleado.ServiceEmpleadoClient();
+            var resultados = resultBusqueda.GetAll(buscarEmp);
+
+
+            ML.Result resultGetAllEmpresas = BL.Empresa.GetAll();
             buscarEmp = new ML.Empleado();
             buscarEmp.Empresa = new ML.Empresa();
 
-            buscarEmp.Empleados = resultGetAll.Objects;
+            buscarEmp.Empleados = resultados.Objects.ToList();
             buscarEmp.Empresa.Empresas = resultGetAllEmpresas.Objects;
             return View(buscarEmp) ;
         }
@@ -56,10 +88,17 @@ namespace WebMVC.Controllers
 
             if (numeroEmpleado != null) //update
             {
-                ML.Result resultById = BL.Empleado.GetById(numeroEmpleado);
-                empleado = (ML.Empleado)resultById.Object;
+                //    ML.Result resultById = BL.Empleado.GetById(numeroEmpleado);
+                //    empleado = (ML.Empleado)resultById.Object;
+                //    empleado.Empresa.Empresas = resultEmpresa.Objects;
+                //    empleado.Accion = "Update";
+
+                ServiceReferenceEmpleado.ServiceEmpleadoClient getById = new ServiceReferenceEmpleado.ServiceEmpleadoClient();
+                var result = getById.GetById(numeroEmpleado);
+                empleado = (ML.Empleado)result.Object;
                 empleado.Empresa.Empresas = resultEmpresa.Objects;
                 empleado.Accion = "Update";
+
             } else //ADD
             {
                 empleado.Empresa.Empresas = resultEmpresa.Objects;
@@ -86,7 +125,10 @@ namespace WebMVC.Controllers
 
                 if(empleado.Accion.Equals("Add")) //agregar
                 {
-                    ML.Result resultAdd = BL.Empleado.Add(empleado);
+                    //ML.Result resultAdd = BL.Empleado.Add(empleado); BL
+                    ServiceReferenceEmpleado.ServiceEmpleadoClient addEmpleado = new ServiceReferenceEmpleado.ServiceEmpleadoClient();
+                    var resultAdd = addEmpleado.Add(empleado);
+
                     if (resultAdd.Correct)
                     {
                         ViewBag.Message = "El empleado se dio de alta correctamente";
@@ -98,7 +140,10 @@ namespace WebMVC.Controllers
                 } 
                 else //actualizar
                 {
-                    ML.Result resultUpdate = BL.Empleado.Update(empleado);
+                    //ML.Result resultUpdate = BL.Empleado.Update(empleado);
+                    ServiceReferenceEmpleado.ServiceEmpleadoClient updateEmpleado = new ServiceReferenceEmpleado.ServiceEmpleadoClient();
+                    var resultUpdate = updateEmpleado.Update(empleado);
+
                     if (resultUpdate.Correct)
                     {
                         ViewBag.Message = "El empleado se actualizó correctamente";
@@ -117,7 +162,10 @@ namespace WebMVC.Controllers
 
         public ActionResult Delete(string numeroEmpleado)
         {
-            ML.Result resultDelete = BL.Empleado.Delete(numeroEmpleado);
+            //ML.Result resultDelete = BL.Empleado.Delete(numeroEmpleado);
+            ServiceReferenceEmpleado.ServiceEmpleadoClient deleteEmpleado = new ServiceReferenceEmpleado.ServiceEmpleadoClient();
+            var resultDelete = deleteEmpleado.Delete(numeroEmpleado);
+
             if (resultDelete.Correct)
             {
                 ViewBag.Message = "El Empleado se ha borrado correctamente.";

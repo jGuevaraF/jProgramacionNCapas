@@ -72,11 +72,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Service1.svc" />
-    <Content Include="ServiceEmpleado.svc" />
-    <Content Include="ServiceUsuario.svc" />
+    <Content Include="AseguradoraService.svc" />
+    <Content Include="EmpleadoService.svc" />
+    <Content Include="UsuarioService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IServiceAseguradora.cs" />
     <Compile Include="IServiceEmpleado.cs" />
     <Compile Include="IServiceUsuario.cs" />
     <Compile Include="Result.cs" />
@@ -85,11 +87,14 @@
     </Compile>
     <Compile Include="IService1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceEmpleado.svc.cs">
-      <DependentUpon>ServiceEmpleado.svc</DependentUpon>
+    <Compile Include="AseguradoraService.svc.cs">
+      <DependentUpon>AseguradoraService.svc</DependentUpon>
     </Compile>
-    <Compile Include="ServiceUsuario.svc.cs">
-      <DependentUpon>ServiceUsuario.svc</DependentUpon>
+    <Compile Include="EmpleadoService.svc.cs">
+      <DependentUpon>EmpleadoService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioService.svc.cs">
+      <DependentUpon>UsuarioService.svc</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +118,9 @@
       <Project>{05b1686e-b842-4336-b88e-33caeb959695}</Project>
       <Name>ML</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
