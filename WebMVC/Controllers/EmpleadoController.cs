@@ -1,7 +1,9 @@
 ﻿using ML;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -12,28 +14,29 @@ namespace WebMVC.Controllers
     {
         // GET: Empleado
         //sin WCF
-        //public ActionResult GetAll()
-        //{
-        //    ML.Empleado empleado = new ML.Empleado();
-        //    empleado.Empresa = new ML.Empresa();
-        //    ML.Result resultGetAll = BL.Empleado.GetAll(empleado);
-        //    ML.Result resultGetAllEmpresas = BL.Empresa.GetAll();
+        public ActionResult GetAllsinWCF()
+        {
+            ML.Empleado empleado = new ML.Empleado();
+            empleado.Empresa = new ML.Empresa();
+            ML.Result resultGetAll = BL.Empleado.GetAll(empleado);
+            ML.Result resultGetAllEmpresas = BL.Empresa.GetAll();
 
-        //    if (resultGetAll.Correct)
-        //    {
-        //        empleado.Empleados = resultGetAll.Objects;
-        //        //empleado.Empresa = new ML.Empresa();
-        //        empleado.Empresa.Empresas = resultGetAllEmpresas.Objects;
-        //        return View(empleado);
-        //    } else
-        //    {
-        //        return View();
-        //    }
+            if (resultGetAll.Correct)
+            {
+                empleado.Empleados = resultGetAll.Objects;
+                //empleado.Empresa = new ML.Empresa();
+                empleado.Empresa.Empresas = resultGetAllEmpresas.Objects;
+                return View(empleado);
+            }
+            else
+            {
+                return View();
+            }
 
-        //}
+        }
 
         [HttpGet]
-        public ActionResult GetAll()//WCF
+        public ActionResult GetAllconWCF()//WCF
         {
             ML.Empleado empleado = new ML.Empleado();
             empleado.Empresa = new ML.Empresa();
@@ -57,6 +60,47 @@ namespace WebMVC.Controllers
             }
 
 }
+
+        [HttpGet]
+        public ActionResult GetAll()
+        {
+            ML.Empleado empleado = new ML.Empleado();
+            empleado.Empresa = new ML.Empresa();
+            ML.Result result = new ML.Result();
+            ML.Result resultGetAllEmpresas = BL.Empresa.GetAll();
+            result.Objects = new List<object>();
+
+            using (var getAll = new HttpClient())
+            {
+                string URLapi = ConfigurationManager.AppSettings["URLapi"];
+
+                getAll.BaseAddress = new Uri(URLapi); //crea la Uri de la API REST
+
+                var responseTaks = getAll.GetAsync("empleado"); //Le indica que la peticion es de tipo GET y de Empleado
+                responseTaks.Wait(); //se ejecuta la logica de la api
+
+                var resultGetAll = responseTaks.Result;
+
+                if (resultGetAll.IsSuccessStatusCode)
+                {
+                    var leerEmpleados = resultGetAll.Content.ReadAsAsync<ML.Result>();
+                    leerEmpleados.Wait();
+
+                    foreach(var consulta in leerEmpleados.Result.Objects)
+                    {
+                        ML.Empleado resultados = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Empleado>(consulta.ToString());
+                        result.Objects.Add(resultados);
+                    }
+
+                    empleado.Empleados = result.Objects;
+                    empleado.Empresa.Empresas = resultGetAllEmpresas.Objects;
+                    return View(empleado);
+                }
+
+            }
+
+            return View();
+        }
 
         [HttpPost]
         public ActionResult GetAll(ML.Empleado buscarEmp)
