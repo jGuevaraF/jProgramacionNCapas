@@ -1,7 +1,9 @@
 ﻿using ML;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,7 +13,7 @@ namespace WebMVC.Controllers
     {
         // GET: Aseguradora
         [HttpGet]
-        public ActionResult GetAll()
+        public ActionResult GetAllWCF()
         {
             //ML.Result result = BL.Aseguradora.GetAll();
             ServiceReferenceAseguradora.ServiceAseguradoraClient getAll = new ServiceReferenceAseguradora.ServiceAseguradoraClient();
@@ -29,7 +31,42 @@ namespace WebMVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult Form (int? idUsuario) {
+        public ActionResult GetAll()
+        {
+           
+            ML.Aseguradora aseguradora = new ML.Aseguradora();
+            using (var client = new HttpClient())
+            {
+                string URLapi = ConfigurationManager.AppSettings["URLapi"];
+                client.BaseAddress = new Uri(URLapi);
+
+                var responseTask = client.GetAsync("aseguradora");
+                responseTask.Wait();
+
+                var resultServicio = responseTask.Result;
+
+                if (resultServicio.IsSuccessStatusCode)
+                {
+                    aseguradora.Aseguradoras = new List<object>();
+                    var readTask = resultServicio.Content.ReadAsAsync<ML.Result>();
+                    readTask.Wait();
+
+                    foreach (var resultAseguradora in readTask.Result.Objects)
+                    {
+                        ML.Aseguradora resultItemList = Newtonsoft.Json.JsonConvert.DeserializeObject<ML.Aseguradora>(resultAseguradora.ToString());
+                        aseguradora.Aseguradoras.Add(resultItemList);
+                    }
+
+                    return View(aseguradora);
+                }
+            }
+
+            return View();
+        } //REST
+
+
+        [HttpGet]
+        public ActionResult FormWCF (int? idUsuario) {
 
             ML.Aseguradora aseguradora = new ML.Aseguradora();
             aseguradora.Usuario = new ML.Usuario();
@@ -56,6 +93,39 @@ namespace WebMVC.Controllers
             }
             return View(aseguradora);
         }
+
+
+        [HttpGet]
+        public ActionResult Form(int? idUsuario)
+        {
+
+            ML.Aseguradora aseguradora = new ML.Aseguradora();
+            aseguradora.Usuario = new ML.Usuario();
+
+            ML.Usuario usuario = new ML.Usuario();
+
+            //ML.Result todosUsuarios = BL.Usuario.GetAllEF(usuario);
+            ServiceReferenceUsuario.ServiceUsuarioClient getAll = new ServiceReferenceUsuario.ServiceUsuarioClient();
+            var todosUsuarios = getAll.GetAll(usuario);
+
+            if (idUsuario == null)//agregar
+            {
+                aseguradora.Usuario.Usuarios = todosUsuarios.Objects.ToList();
+
+
+            }
+            else //actualizar
+            {
+                //ML.Result resultUpdate = BL.Aseguradora.GetById(idUsuario.Value);
+                ServiceReferenceAseguradora.ServiceAseguradoraClient getById = new ServiceReferenceAseguradora.ServiceAseguradoraClient();
+                var resultGetById = getById.GetById(idUsuario.Value);
+
+                aseguradora = (ML.Aseguradora)resultGetById.Object;
+                aseguradora.Usuario.Usuarios = todosUsuarios.Objects.ToList();
+            }
+            return View(aseguradora);
+        }
+
 
         [HttpPost]
         public ActionResult Form(ML.Aseguradora aseguradora)

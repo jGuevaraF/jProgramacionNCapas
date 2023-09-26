@@ -142,7 +142,7 @@ namespace BL
                         empleado.FechaNacimiento = (DateTime)query.FechaNacimiento;
                         empleado.NSS = query.NSS;
                         empleado.FechaIngreso = (DateTime)query.FechaIngreso;
-                        //empleado.Foto = query.Foto;
+                        empleado.Foto = query.Foto;
 
                         empleado.Empresa = new ML.Empresa();
                         empleado.Empresa.IdEmpresa = query.IdEmpresa;

@@ -58,6 +58,7 @@ C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCap
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\ML.dll
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\Newtonsoft.Json.dll
+C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\System.Net.Http.Formatting.dll
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\System.Web.Helpers.dll
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\System.Web.Mvc.dll
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\System.Web.Optimization.dll
@@ -72,6 +73,7 @@ C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCap
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\ML.pdb
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\EntityFramework.xml
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\EntityFramework.SqlServer.xml
+C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\System.Net.Http.Formatting.xml
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\System.Web.Helpers.xml
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\System.Web.Mvc.xml
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\System.Web.Optimization.xml
@@ -89,5 +91,3 @@ C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCap
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\obj\Debug\PL_MVC.csproj.CopyComplete
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\obj\Debug\WebMVC.dll
 C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\obj\Debug\WebMVC.pdb
-C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\System.Net.Http.Formatting.dll
-C:\Users\digis\OneDrive\Documentos\Jorge Guevara Flores\JGuevaraProgramacionNCapas\WebMVC\bin\System.Net.Http.Formatting.xml

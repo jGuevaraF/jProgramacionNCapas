@@ -61,12 +61,17 @@ namespace SLWebAPI.Controllers
             }
         }
 
-        [Route("")]
+
+        [Route("{nombre?}/{idEmpresa?}")]
         [HttpGet]
-        public IHttpActionResult GetAll()
+        public IHttpActionResult GetAll(string nombre, int idEmpresa)
         {
+
             ML.Empleado empleado = new ML.Empleado();
+            empleado.Nombre = nombre;
+
             empleado.Empresa = new ML.Empresa();
+            empleado.Empresa.IdEmpresa = idEmpresa;
             ML.Result result = BL.Empleado.GetAll(empleado);
 
             if (result.Correct)
